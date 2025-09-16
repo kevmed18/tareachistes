@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bromas de Chuck Norris</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+
+    #bromaBtn {
+      background: #ff9800;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #bromaBtn:hover {
+      background: #e68900;
+      transform: scale(1.05);
+    }
+
+    #broma {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      max-width: 600px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>Bromas de Chuck Norris</h1>
+  <button id="bromaBtn">😂 Dame una broma</button>
+  <p id="broma">Aquí aparecerá una broma...</p>
+
+  <script>
+    const boton = document.querySelector("#bromaBtn");
+    const bromaTexto = document.querySelector("#broma");
+
+    async function obtenerBroma() {
+      try {
+        const respuesta = await fetch("https://api.chucknorris.io/jokes/random");
+        const datos = await respuesta.json();
+        bromaTexto.textContent = datos.value;
+      } catch (error) {
+        bromaTexto.textContent = "Ups, no se pudo obtener la broma 😅";
+        console.error("Error:", error);
+      }
+    }
+
+    boton.addEventListener("click", obtenerBroma);
+  </script>
+</body>
+</html>
